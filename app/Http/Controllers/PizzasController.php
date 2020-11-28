@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+use DB;
+use Illuminate\Http\Request;
+use App\Pizza;
+
+class PizzasController extends Controller
+{
+    public function index()
+    {
+        $pizzas = Pizza::all();
+        return view('home', ['pizzas' => $pizzas]);
+    }
+
+    public function edit($id)
+    {
+        $pizzas = Pizza::find($id);
+        return view('edit', ['id' => $id, 'pizza' => $pizzas]);
+    }
+
+    public function submitEdit()
+    {
+        $id = request('id');
+        $name = request('name');
+        $description = request('description');
+        $image = request('image');
+        $price = request('price');
+
+        DB::update('update pizzas set name = ?,price=?,description=?,image=? where id = ?',[$name,$price,$description,$image,$id]);
+        return redirect()->route('home');
+    }
+
+    public function add()
+    {
+        return view('add-pizza');
+    }
+
+    public function addSubmit()
+    {
+        $name = request('name');
+        $description = request('description');
+        $image = request('image');
+        $price = request('price');
+
+        DB::update("insert into pizzas (name, price, description, image) VALUES (?,?,?,?)",[$name,$price,$description,$image]);
+        return redirect()->route('home');
+    }
+
+    public function destroy($id)
+    {
+        $pizzas= Pizza::find($id);
+        $pizzas->delete();
+        return redirect()->route('home');
+    }
+}
