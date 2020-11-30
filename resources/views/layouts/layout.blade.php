@@ -11,13 +11,15 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="/css/style.css">
-        <link rel="stylesheet" href="/css/bootstrap.css">
+        <link rel="stylesheet" href="/css/bootstrap.css">`
         <link rel="stylesheet" href="/css/bootstrap.min.css">
 
         <script type="text/javascript" src="/js/bootstrap.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.bundle.js"></script>
         <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
     </head>
     <body>

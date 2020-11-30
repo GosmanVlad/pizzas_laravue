@@ -94,3 +94,7 @@ form
     margin-right: auto;
     text-align: left;
 }
+
+.centerText {
+    text-align: center;
+}

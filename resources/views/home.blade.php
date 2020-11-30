@@ -25,7 +25,7 @@
                 <td>{{ $pizza->price }}</td>
                 <td>{{ $pizza->description }}</td>
                 <td><a href='{{asset("pizzas/$pizza->image")}}' target="_blank">Click to view</a></td>
-                <td><a href='/pizzas/delete/{{$pizza->id}}' class="btn btn-outline-danger">Sterge</a> <a href='/pizzas/edit/{{$pizza->id}}' class="btn btn-outline-primary">Editeaza</a></td>
+                <td><a href='/pizzas/delete/{{$pizza->id}}' class="btn btn-outline-danger">Sterge</a> <a href='/pizzas/edit/{{$pizza->id}}' class="btn btn-outline-primary">Editeaza</a> <a href='/pizzas/details/{{$pizza->id}}' class="btn btn-outline-info">Detalii</a></td>
             </tr>
         @endforeach
         </tbody>

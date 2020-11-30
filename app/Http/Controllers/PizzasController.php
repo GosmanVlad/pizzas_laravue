@@ -13,6 +13,12 @@ class PizzasController extends Controller
         return view('home', ['pizzas' => $pizzas]);
     }
 
+    public function details($id)
+    {
+        $pizzas = Pizza::find($id);
+        return view('details', ['id' => $id, 'pizza' => $pizzas]);
+    }
+
     public function edit($id)
     {
         $pizzas = Pizza::find($id);

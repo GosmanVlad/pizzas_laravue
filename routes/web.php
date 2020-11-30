@@ -22,3 +22,5 @@ Route::post('/pizzas/edit', 'PizzasController@submitEdit');
 
 Route::get('/pizzas/add', 'PizzasController@add');
 Route::post('/pizzas/add', 'PizzasController@addSubmit');
+
+Route::get('/pizzas/details/{id}', 'PizzasController@details');
