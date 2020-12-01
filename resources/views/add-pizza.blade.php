@@ -1,14 +1,8 @@
-@extends('layouts.layout')
-
-@section('content')
-
-<div class="content">
-    <div class="title m-b-md">
-        Add a new pizza
-    </div>
-    <a href="/home">Back to home</a><hr>
+<div class="title m-b-md">
+    Add a new pizza
 </div>
-
+<button @click="item=1" class="btn btn-outline-dark">Back to home</button>
+<hr>
 <div class="form">
     <form action="/pizzas/add" method="POST">
         @csrf
@@ -45,6 +39,3 @@
         </div>
         <input type="submit" value="Adauga" class="btn btn-outline-success btn-block">
     </form>
-</div>
-
-@endsection
