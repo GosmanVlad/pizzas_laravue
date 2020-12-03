@@ -37,6 +37,18 @@ class PizzasController extends Controller
         return redirect()->route('home');
     }
 
+    public function store()
+    {
+        $pizza = new Pizza();
+        $pizza->name = request('name');
+        $pizza->description = request('description');
+        $pizza->image = request('image');
+        $pizza->price = request('price');
+        $pizza->save();
+        redirect()->route('home');
+        return redirect()->route('home');
+    }
+
     public function add()
     {
         return view('add-pizza');
@@ -49,7 +61,7 @@ class PizzasController extends Controller
         $image = request('image');
         $price = request('price');
 
-        DB::update("insert into pizzas (name, price, description, image) VALUES (?,?,?,?)",[$name,$price,$description,$image]);
+        DB::update("insert into pizzas (name, price, description, image, updated_at, created_at) VALUES (?,?,?,?)",[$name,$price,$description,$image, '2020-12-03 12:27:46', '2020-12-03 12:27:46']);
         return redirect()->route('home');
     }
 

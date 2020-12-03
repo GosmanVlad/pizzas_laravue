@@ -21,6 +21,9 @@ Route::get('/pizzas/edit/{id}', 'PizzasController@edit');
 Route::post('/pizzas/edit', 'PizzasController@submitEdit');
 
 Route::get('/pizzas/add', 'PizzasController@add');
-Route::post('/pizzas/add', 'PizzasController@addSubmit');
+
+Route::group(['middleware' => 'api'], function () {
+    Route::Resource('add', 'PizzasController');
+});
 
 Route::get('/pizzas/details/{id}', 'PizzasController@details');

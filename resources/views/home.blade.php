@@ -35,10 +35,12 @@
             <button @click="item=4" class="btn btn-primary btn-lg btn-block">Add a new pizza</button>
         </div>
         <div v-else="item==4">
-            @include("add-pizza")
+            <addpage></addpage><hr>
+            <button @click="item=1" class="btn btn-primary">Back</button>
         </div>
     </div>
 </div>
+
 
 <script>
 new Vue({
@@ -49,4 +51,5 @@ new Vue({
     }
 })
 </script>
+
 @endsection
