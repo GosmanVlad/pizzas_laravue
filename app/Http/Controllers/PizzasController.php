@@ -7,10 +7,15 @@ use App\Pizza;
 
 class PizzasController extends Controller
 {
-    public function index()
+    public function home()
     {
         $pizzas = Pizza::all();
         return view('home', ['pizzas' => $pizzas]);
+    }
+
+    public function index()
+    {
+        return Pizza::latest()->get();
     }
 
     public function details($id)

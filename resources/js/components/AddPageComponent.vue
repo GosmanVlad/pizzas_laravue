@@ -72,7 +72,7 @@ export default {
 
             datas.append('_method', 'POST');
             console.log("Pressed");
-            axios.post('./add', datas)
+            axios.post('./pizzasData', datas)
                 .then(
                     response => {
                         console.log("Insert in DB");

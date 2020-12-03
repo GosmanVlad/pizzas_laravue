@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('home', 'PizzasController@index')->name('home');
-Route::get('/', 'PizzasController@index');
+Route::get('home', 'PizzasController@home')->name('home');
+Route::get('/', 'PizzasController@home');
 
 Route::get('/pizzas/delete/{id}', 'PizzasController@destroy');
 
@@ -23,7 +23,7 @@ Route::post('/pizzas/edit', 'PizzasController@submitEdit');
 Route::get('/pizzas/add', 'PizzasController@add');
 
 Route::group(['middleware' => 'api'], function () {
-    Route::Resource('add', 'PizzasController');
+    Route::Resource('pizzasData', 'PizzasController');
 });
 
 Route::get('/pizzas/details/{id}', 'PizzasController@details');
