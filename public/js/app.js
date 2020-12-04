@@ -2090,6 +2090,17 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    deleteTodo: function deleteTodo(e) {
+      var _this2 = this;
+
+      var data = new FormData();
+      data.append('_method', 'DELETE');
+      axios.post('./pizzasData/' + e.id, data).then(function (res) {
+        _this2.pizzas = res.data;
+      })["catch"](function (error) {
+        console.log("Error");
+      });
     }
   },
   mounted: function mounted() {
@@ -38661,13 +38672,12 @@ var render = function() {
             _vm._v(" "),
             _c("td", [
               _c(
-                "a",
+                "button",
                 {
                   staticClass: "btn btn-outline-danger",
-                  attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.item = 1
+                      return _vm.deleteTodo(pizza)
                     }
                   }
                 },

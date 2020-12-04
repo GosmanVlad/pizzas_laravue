@@ -72,8 +72,8 @@ class PizzasController extends Controller
 
     public function destroy($id)
     {
-        $pizzas= Pizza::find($id);
-        $pizzas->delete();
-        return redirect()->route('home');
+        $pizza = Pizza::findOrFail($id);
+        $pizza->delete();
+        return Pizza::latest()->get();
     }
 }

@@ -21,7 +21,7 @@
                         <td>{{ pizza.price }}</td>
                         <td>{{ pizza.description }}</td>
                         <td><a href='#' target="_blank">Click to view</a></td>
-                        <td><a href='#' @click="item = 1" class="btn btn-outline-danger">Sterge</a> <a href='#' @click="item = 2"  class="btn btn-outline-primary">Editeaza</a> <a href='#' @click="item = 3"  class="btn btn-outline-info">Detalii</a></td>
+                        <td><button v-on:click="deleteTodo(pizza)" class="btn btn-outline-danger">Sterge</button> <a href='#' @click="item = 2"  class="btn btn-outline-primary">Editeaza</a> <a href='#' @click="item = 3"  class="btn btn-outline-info">Detalii</a></td>
                         <!-- <td><a href='{{asset("pizzas/$pizza->image")}}' target="_blank">Click to view</a></td>
                         <td><a href='/pizzas/delete/{{$pizza->id}}' @click="item = 1" class="btn btn-outline-danger">Sterge</a> <a href='/pizzas/edit/{{$pizza->id}}' @click="item = 2"  class="btn btn-outline-primary">Editeaza</a> <a href='/pizzas/details/{{$pizza->id}}' @click="item = 3"  class="btn btn-outline-info">Detalii</a></td> -->
                     </tr>
@@ -44,6 +44,15 @@ export default {
                     this.pizzas = res.data;
             }).catch((error) => {
                 console.log(error);
+            })
+        },
+         deleteTodo(e){
+            let data = new FormData();
+            data.append('_method', 'DELETE')
+            axios.post('./pizzasData/'+e.id, data).then((res) =>{
+                this.pizzas = res.data
+            }).catch((error) => {
+                console.log("Error");
             })
         },
     },

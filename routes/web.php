@@ -24,6 +24,7 @@ Route::get('/pizzas/add', 'PizzasController@add');
 
 Route::group(['middleware' => 'api'], function () {
     Route::Resource('pizzasData', 'PizzasController');
+    Route::Resource('pizzasData/delete/{id}', 'PizzasController@destroy');
 });
 
 Route::get('/pizzas/details/{id}', 'PizzasController@details');
