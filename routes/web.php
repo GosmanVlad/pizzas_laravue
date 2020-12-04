@@ -18,13 +18,15 @@ Route::get('/', 'PizzasController@home');
 Route::get('/pizzas/delete/{id}', 'PizzasController@destroy');
 
 Route::get('/pizzas/edit/{id}', 'PizzasController@edit');
-Route::post('/pizzas/edit', 'PizzasController@submitEdit');
+// Route::post('/pizzas/editSubmit/{id}', 'PizzasController@update');
 
 Route::get('/pizzas/add', 'PizzasController@add');
 
 Route::group(['middleware' => 'api'], function () {
     Route::Resource('pizzasData', 'PizzasController');
-    Route::Resource('pizzasData/delete/{id}', 'PizzasController@destroy');
 });
 
 Route::get('/pizzas/details/{id}', 'PizzasController@details');
+
+
+Route::get('/pizzas/find/{id}', 'PizzasController@find');

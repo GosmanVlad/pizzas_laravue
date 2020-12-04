@@ -23,6 +23,8 @@ window.Form = Form;
 
 Vue.component('addpage', require('./components/AddPageComponent.vue').default);
 Vue.component('homepage', require('./components/HomePageComponent.vue').default);
+Vue.component('pizzadetails', require('./components/DetailsPageComponent.vue').default);
+Vue.component('pizzaedit', require('./components/EditPageComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

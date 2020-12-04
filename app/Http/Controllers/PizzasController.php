@@ -29,19 +29,41 @@ class PizzasController extends Controller
         $pizzas = Pizza::find($id);
         return view('edit', ['id' => $id, 'pizza' => $pizzas]);
     }
-
-    public function submitEdit()
+    public function find($id)
     {
-        $id = request('id');
-        $name = request('name');
-        $description = request('description');
-        $image = request('image');
-        $price = request('price');
-
-        DB::update('update pizzas set name = ?,price=?,description=?,image=? where id = ?',[$name,$price,$description,$image,$id]);
-        return redirect()->route('home');
+        return Pizza::find($id);
     }
 
+    public function update(Request $request, $id)
+    {
+        // $id = request('id');
+        // $name = request('name');
+        // $description = request('description');
+        // $image = request('image');
+        // $price = request('price');
+        // DB::update('update pizzas set name = ?,price=?,description=?,image=? where id = ?',[$name,$price,$description,$image,$id]);
+        // return redirect()->route('home');
+
+        $pizza = Pizza::findOrFail($id);
+        $pizza->name = $request->name;
+        $pizza->price = $request->price;
+        $pizza->description = $request->description;
+        $pizza->image = $request->image;
+        $pizza->save();
+        return response()->json($request);
+        
+    }
+    private function validateRequest()
+    {
+
+        return request()->validate([
+            'name' => 'required',
+            'price'=>'required',
+            'description'=>'required',
+            'image' => 'sometimes|file|image|max:50000',
+        ]);
+
+    }
     public function store()
     {
         $pizza = new Pizza();

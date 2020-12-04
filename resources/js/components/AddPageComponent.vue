@@ -71,7 +71,6 @@ export default {
             datas.append('price', this.price);
 
             datas.append('_method', 'POST');
-            console.log("Pressed");
             axios.post('./pizzasData', datas)
                 .then(
                     response => {
