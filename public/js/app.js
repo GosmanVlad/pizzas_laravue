@@ -2274,10 +2274,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  properties: ['pizzaID'],
+  props: ['rangid'],
   data: function data() {
     return {
       item: 1,
@@ -2287,6 +2288,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     DetailsPageComponent: _DetailsPageComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    getRangID: function getRangID() {
+      return this.rangid;
+    }
   },
   methods: {
     getData: function getData() {
@@ -39115,18 +39121,20 @@ var render = function() {
                   _vm._m(1, true),
                   _vm._v(" "),
                   _c("td", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-danger",
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteTodo(pizza)
-                          }
-                        }
-                      },
-                      [_vm._v("Sterge")]
-                    ),
+                    _vm.getRangID
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-danger",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteTodo(pizza)
+                              }
+                            }
+                          },
+                          [_vm._v("Sterge")]
+                        )
+                      : _vm._e(),
                     _vm._v(" "),
                     _c(
                       "button",
@@ -39142,19 +39150,21 @@ var render = function() {
                       [_vm._v("Detalii")]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-info",
-                        on: {
-                          click: function($event) {
-                            _vm.item = 4
-                            _vm.pizzaDetailsID = pizza.id
-                          }
-                        }
-                      },
-                      [_vm._v("Editeaza")]
-                    )
+                    _vm.getRangID
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-info",
+                            on: {
+                              click: function($event) {
+                                _vm.item = 4
+                                _vm.pizzaDetailsID = pizza.id
+                              }
+                            }
+                          },
+                          [_vm._v("Editeaza")]
+                        )
+                      : _vm._e()
                   ])
                 ])
               }),
@@ -39164,18 +39174,20 @@ var render = function() {
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-lg btn-block",
-              on: {
-                click: function($event) {
-                  _vm.item = 5
-                }
-              }
-            },
-            [_vm._v("Add a new pizza")]
-          )
+          _vm.getRangID
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-lg btn-block",
+                  on: {
+                    click: function($event) {
+                      _vm.item = 5
+                    }
+                  }
+                },
+                [_vm._v("Add a new pizza")]
+              )
+            : _vm._e()
         ])
       : _vm.item == 3
       ? _c(

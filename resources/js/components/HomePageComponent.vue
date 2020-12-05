@@ -22,16 +22,17 @@
                     <td>{{ pizza.price }}</td>
                     <td>{{ pizza.description }}</td>
                     <td><a href="pizzas/{pizza.id}" target="_blank">Click to view</a></td>
-                    <td><button v-on:click="deleteTodo(pizza)" class="btn btn-outline-danger">Sterge</button> 
+                    
+                    <td><button v-if="getRangID" v-on:click="deleteTodo(pizza)" class="btn btn-outline-danger">Sterge</button> 
                         <button @click="item = 3;pizzaDetailsID=pizza.id"  class="btn btn-outline-primary">Detalii</button> 
-                        <button @click="item = 4;pizzaDetailsID=pizza.id"  class="btn btn-outline-info">Editeaza</button>
+                        <button v-if="getRangID" @click="item = 4;pizzaDetailsID=pizza.id"  class="btn btn-outline-info">Editeaza</button>
                     </td>
                     <!-- <td><a href='{{asset("pizzas/$pizza->image")}}' target="_blank">Click to view</a></td>
                     <td><a href='/pizzas/delete/{{$pizza->id}}' @click="item = 1" class="btn btn-outline-danger">Sterge</a> <a href='/pizzas/edit/{{$pizza->id}}' @click="item = 2"  class="btn btn-outline-primary">Editeaza</a> <a href='/pizzas/details/{{$pizza->id}}' @click="item = 3"  class="btn btn-outline-info">Detalii</a></td> -->
                 </tr>
             </tbody>
         </table> <hr>
-        <button @click="item=5" class="btn btn-primary btn-lg btn-block">Add a new pizza</button>
+        <button v-if="getRangID" @click="item=5" class="btn btn-primary btn-lg btn-block">Add a new pizza</button>
     </div>
     <div v-else-if="item==3">
         <pizzadetails :pizzaDetailsID="pizzaDetailsID"></pizzadetails><hr>
@@ -52,16 +53,22 @@
 import DetailsPageComponent from "./DetailsPageComponent";
 import EditPageComponent from "./EditPageComponent";
 export default {
-    properties: ['pizzaID'],
+    props: ['rangid'],
+    
     data:function() {
         return{
             item: 1,
             pizzaDetailsID: 0,
-            pizzas: []
+            pizzas: [],
         }
     },
     components: {
         DetailsPageComponent,
+    },
+    computed: {
+        getRangID: function() {
+            return this.rangid;
+        }
     },
     methods: {
         getData() {
