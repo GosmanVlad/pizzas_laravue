@@ -39118,7 +39118,18 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(pizza.description))]),
                   _vm._v(" "),
-                  _vm._m(1, true),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href: "pizzas/" + pizza.image,
+                          target: "_blank"
+                        }
+                      },
+                      [_vm._v("Click to view")]
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("td", [
                     _vm.getRangID
@@ -39278,16 +39289,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Photo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { attrs: { href: "pizzas/{pizza.id}", target: "_blank" } }, [
-        _vm._v("Click to view")
       ])
     ])
   }

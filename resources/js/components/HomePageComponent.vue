@@ -21,7 +21,7 @@
                     <td>{{ pizza.name }}</td>
                     <td>{{ pizza.price }}</td>
                     <td>{{ pizza.description }}</td>
-                    <td><a href="pizzas/{pizza.id}" target="_blank">Click to view</a></td>
+                    <td><a v-bind:href="`pizzas/`+pizza.image" target="_blank">Click to view</a></td>
                     
                     <td><button v-if="getRangID" v-on:click="deleteTodo(pizza)" class="btn btn-outline-danger">Sterge</button> 
                         <button @click="item = 3;pizzaDetailsID=pizza.id"  class="btn btn-outline-primary">Detalii</button> 
