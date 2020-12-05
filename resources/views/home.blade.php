@@ -4,6 +4,7 @@
 
 <div id="app">
     <div class="content">
+        <div style="float:right;"><a href="{{asset('logout')}}"> Delogare</a></div>
         <homepage></homepage>
     </div>
 </div>

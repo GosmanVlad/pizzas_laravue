@@ -12,8 +12,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('home', 'PizzasController@home')->name('home');
-Route::get('/', 'PizzasController@home');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('logout', 'HomeController@logout');
+
+
+// Route::get('home', 'PizzasController@home')->name('home');
+// Route::get('/', 'PizzasController@home');
 
 Route::get('/pizzas/delete/{id}', 'PizzasController@destroy');
 
@@ -30,3 +35,5 @@ Route::get('/pizzas/details/{id}', 'PizzasController@details');
 
 
 Route::get('/pizzas/find/{id}', 'PizzasController@find');
+Auth::routes();
+
