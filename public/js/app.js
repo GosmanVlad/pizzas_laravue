@@ -1974,6 +1974,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1991,6 +1994,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.image = '';
       this.price = '';
     },
+    selectFile: function selectFile(event) {
+      this.image = event.target.files[0];
+    },
     submit: function submit() {
       var _this = this;
 
@@ -2003,7 +2009,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 datas = new FormData();
                 datas.append('name', _this.name);
                 datas.append('description', _this.description);
-                datas.append('image', _this.image);
+                datas.append("image", _this.image);
                 datas.append('price', _this.price);
                 datas.append('_method', 'POST');
                 axios.post('./pizzasData', datas).then(function (response) {
@@ -2015,7 +2021,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (error.response) {
                     console.log(error.response.data.errors);
                     _this.errors = error.response.data.errors;
-                  } else {}
+                  }
                 });
 
               case 7:
@@ -38774,28 +38780,13 @@ var render = function() {
                 _c("label", { attrs: { for: "image" } }, [_vm._v("Image")]),
                 _c("br"),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.image,
-                      expression: "image"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", id: "image", name: "image" },
-                  domProps: { value: _vm.image },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.image = $event.target.value
-                    }
-                  }
-                }),
-                _c("br")
+                _c("div", { staticClass: "custom-file" }, [
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "file", name: "image" },
+                    on: { change: _vm.selectFile }
+                  })
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -39123,7 +39114,7 @@ var render = function() {
                       "a",
                       {
                         attrs: {
-                          href: "pizzas/" + pizza.image,
+                          href: "images/" + pizza.image,
                           target: "_blank"
                         }
                       },

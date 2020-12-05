@@ -36,14 +36,6 @@ class PizzasController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $id = request('id');
-        // $name = request('name');
-        // $description = request('description');
-        // $image = request('image');
-        // $price = request('price');
-        // DB::update('update pizzas set name = ?,price=?,description=?,image=? where id = ?',[$name,$price,$description,$image,$id]);
-        // return redirect()->route('home');
-
         $pizza = Pizza::findOrFail($id);
         $pizza->name = $request->name;
         $pizza->price = $request->price;
@@ -53,26 +45,23 @@ class PizzasController extends Controller
         return response()->json($request);
         
     }
-    private function validateRequest()
-    {
-
-        return request()->validate([
-            'name' => 'required',
-            'price'=>'required',
-            'description'=>'required',
-            'image' => 'sometimes|file|image|max:50000',
-        ]);
-
-    }
-    public function store()
+    public function store(Request $request)
     {
         $pizza = new Pizza();
         $pizza->name = request('name');
         $pizza->description = request('description');
-        $pizza->image = request('image');
+
+        
+        $this->validate($request, [ 
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $imageName = time().'.'.$request->image->extension();  
+   
+        $request->image->move(public_path('images'), $imageName);
+        $pizza->image = $imageName;
         $pizza->price = request('price');
         $pizza->save();
-        redirect()->route('home');
+
         return redirect()->route('home');
     }
 

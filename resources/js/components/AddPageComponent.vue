@@ -27,7 +27,10 @@
             <div class="col-sm">
                 <div class="form-group">
                     <label for="image">Image</label><br>
-                    <input v-model="image" type="text" id="image" name="image" class="form-control"><br>
+                    <!-- <input v-model="image" type="text" id="image" name="image" class="form-control"><br> -->
+                    <div class="custom-file">
+                        <input @change="selectFile" type="file" name="image" class="form-control">
+                    </div>
                 </div>
             </div>
 
@@ -63,11 +66,14 @@ export default {
             this.image = '';
             this.price = '';
         },
+        selectFile(event) {
+            this.image = event.target.files[0];
+        },
         async submit() {
             const datas = new FormData();
             datas.append('name', this.name);
             datas.append('description', this.description);
-            datas.append('image', this.image);
+            datas.append("image", this.image);
             datas.append('price', this.price);
 
             datas.append('_method', 'POST');
@@ -82,8 +88,7 @@ export default {
                         if (error.response) {
                             console.log(error.response.data.errors);
                             this.errors = error.response.data.errors;
-                        } else {
-                        }
+                        } 
                     });
         }
     },
