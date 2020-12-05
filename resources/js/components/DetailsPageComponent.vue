@@ -6,7 +6,7 @@
         </div>
 
         <div class="centerText">
-            <img v-bind:src="`/pizzas/` + pizza.image"> <br>
+            <img v-bind:src="`/images/` + pizza.image"> <br>
             <strong>{{pizza.name}}</strong> <br>
             {{pizza.description}} <br>
             <strong>Pret:</strong> {{pizza.price}}<strong style="color:#098E05;">RON</strong> <br>

@@ -38,7 +38,7 @@
             </form>
         </div>
         <div class="col-sm">
-        <img v-bind:src="`/pizzas/` + pizza.image"> 
+        <img v-bind:src="`/images/` + pizza.image"> 
     </div></div>
     </div>
 </div>

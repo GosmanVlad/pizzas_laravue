@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label for="image">Image</label><br>
                     <!-- <input v-model="image" type="text" id="image" name="image" class="form-control"><br> -->
-                    <div class="custom-file">
+                     <div class="custom-file">
                         <input @change="selectFile" type="file" name="image" class="form-control">
                     </div>
                 </div>

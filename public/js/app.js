@@ -38859,7 +38859,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "centerText" }, [
-        _c("img", { attrs: { src: "/pizzas/" + _vm.pizza.image } }),
+        _c("img", { attrs: { src: "/images/" + _vm.pizza.image } }),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -39059,7 +39059,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm" }, [
-          _c("img", { attrs: { src: "/pizzas/" + _vm.pizza.image } })
+          _c("img", { attrs: { src: "/images/" + _vm.pizza.image } })
         ])
       ])
     ])
