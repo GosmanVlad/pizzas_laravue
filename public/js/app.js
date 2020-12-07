@@ -2156,14 +2156,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['pizzaDetailsID'],
+  props: ['pizzaDetailsID', 'isadmin'],
   data: function data() {
     return {
       item: 1,
       pizza: [],
-      success: false
+      success: false,
+      problem: false
     };
   },
   components: {
@@ -2179,23 +2183,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                datas = new FormData();
-                datas.append('name', _this.pizza.name);
-                datas.append('description', _this.pizza.description);
-                datas.append('image', _this.pizza.image);
-                datas.append('price', _this.pizza.price);
-                datas.append('_method', 'PATCH');
-                axios.post('./pizzasData/' + _this.pizza.id, datas).then(function (response) {
-                  console.log("updated");
-                  _this.success = true;
-                })["catch"](function (error) {
-                  if (error.response) {
-                    console.log(error.response.data.errors);
-                    _this.errors = error.response.data.errors;
-                  } else {}
-                });
+                if (_this.isadmin) {
+                  datas = new FormData();
+                  datas.append('name', _this.pizza.name);
+                  datas.append('description', _this.pizza.description);
+                  datas.append('image', _this.pizza.image);
+                  datas.append('price', _this.pizza.price);
+                  datas.append('_method', 'PATCH');
+                  axios.post('./pizzasData/' + _this.pizza.id, datas).then(function (response) {
+                    console.log("updated");
+                    _this.success = true;
+                  })["catch"](function (error) {
+                    if (error.response) {
+                      console.log(error.response.data.errors);
+                      _this.errors = error.response.data.errors;
+                    } else {}
+                  });
+                } else {
+                  _this.problem = true;
+                }
 
-              case 7:
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -2281,6 +2289,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2289,16 +2298,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       item: 1,
       pizzaDetailsID: 0,
-      pizzas: []
+      pizzas: [],
+      problem: false
     };
   },
   components: {
     DetailsPageComponent: _DetailsPageComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  computed: {
-    getRangID: function getRangID() {
-      return this.rangid;
-    }
   },
   methods: {
     getData: function getData() {
@@ -2313,13 +2318,20 @@ __webpack_require__.r(__webpack_exports__);
     deleteTodo: function deleteTodo(e) {
       var _this2 = this;
 
-      var data = new FormData();
-      data.append('_method', 'DELETE');
-      axios.post('./pizzasData/' + e.id, data).then(function (res) {
-        _this2.pizzas = res.data;
-      })["catch"](function (error) {
-        console.log("Error");
-      });
+      if (this.getRangID()) {
+        var data = new FormData();
+        data.append('_method', 'DELETE');
+        axios.post('./pizzasData/' + e.id, data).then(function (res) {
+          _this2.pizzas = res.data;
+        })["catch"](function (error) {
+          console.log("Error");
+        });
+      } else {
+        this.problem = true;
+      }
+    },
+    getRangID: function getRangID() {
+      return this.rangid;
     }
   },
   mounted: function mounted() {
@@ -38916,6 +38928,14 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
+      _vm.problem
+        ? _c(
+            "div",
+            { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+            [_vm._v("\n            Nu esti administrator!\n        ")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c("a", { attrs: { href: "/home" } }, [_vm._v("Back to home")]),
       _c("hr")
     ]),
@@ -39094,6 +39114,14 @@ var render = function() {
             _vm._v("\n          Pizzas\n      ")
           ]),
           _vm._v(" "),
+          _vm.problem
+            ? _c(
+                "div",
+                { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+                [_vm._v("\n          Nu esti administrator!\n      ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c("table", { staticClass: "table table-bordered" }, [
             _vm._m(0),
             _vm._v(" "),
@@ -39123,20 +39151,18 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", [
-                    _vm.getRangID
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-danger",
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteTodo(pizza)
-                              }
-                            }
-                          },
-                          [_vm._v("Sterge")]
-                        )
-                      : _vm._e(),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-danger",
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteTodo(pizza)
+                          }
+                        }
+                      },
+                      [_vm._v("Sterge")]
+                    ),
                     _vm._v(" "),
                     _c(
                       "button",
@@ -39152,21 +39178,19 @@ var render = function() {
                       [_vm._v("Detalii")]
                     ),
                     _vm._v(" "),
-                    _vm.getRangID
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-info",
-                            on: {
-                              click: function($event) {
-                                _vm.item = 4
-                                _vm.pizzaDetailsID = pizza.id
-                              }
-                            }
-                          },
-                          [_vm._v("Editeaza")]
-                        )
-                      : _vm._e()
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-info",
+                        on: {
+                          click: function($event) {
+                            _vm.item = 4
+                            _vm.pizzaDetailsID = pizza.id
+                          }
+                        }
+                      },
+                      [_vm._v("Editeaza")]
+                    )
                   ])
                 ])
               }),
@@ -39176,20 +39200,18 @@ var render = function() {
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
-          _vm.getRangID
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary btn-lg btn-block",
-                  on: {
-                    click: function($event) {
-                      _vm.item = 5
-                    }
-                  }
-                },
-                [_vm._v("Add a new pizza")]
-              )
-            : _vm._e()
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-lg btn-block",
+              on: {
+                click: function($event) {
+                  _vm.item = 5
+                }
+              }
+            },
+            [_vm._v("Add a new pizza")]
+          )
         ])
       : _vm.item == 3
       ? _c(
@@ -39219,7 +39241,12 @@ var render = function() {
       ? _c(
           "div",
           [
-            _c("pizzaedit", { attrs: { pizzaDetailsID: _vm.pizzaDetailsID } }),
+            _c("pizzaedit", {
+              attrs: {
+                pizzaDetailsID: _vm.pizzaDetailsID,
+                isadmin: _vm.getRangID()
+              }
+            }),
             _c("hr"),
             _vm._v(" "),
             _c(

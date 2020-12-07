@@ -7,6 +7,9 @@
         <div v-if="success" class="alert alert-success" role="alert">
             Actualizare reusita!
         </div>
+        <div v-if="problem" class="alert alert-danger" role="alert">
+            Nu esti administrator!
+        </div>
         <a href="/home">Back to home</a><hr>
     </div>
 
@@ -47,12 +50,13 @@
 <script>
 import HomePageComponent from "./HomePageComponent";
 export default {
-    props:['pizzaDetailsID'],
+    props:['pizzaDetailsID', 'isadmin'],
     data:function() {
         return{
             item: 1,
             pizza: [],
             success: false,
+            problem: false,
         }
     },
     components: {
@@ -60,25 +64,29 @@ export default {
     },
     methods: {
         async submit() {
-            const datas = new FormData();
-            datas.append('name', this.pizza.name);
-            datas.append('description', this.pizza.description);
-            datas.append('image', this.pizza.image);
-            datas.append('price', this.pizza.price);
-            datas.append('_method', 'PATCH');
-            axios.post('./pizzasData/'+this.pizza.id, datas)
-                .then(
-                    response => {
-                        console.log("updated");
-                        this.success = true;
-                    }
-                ).catch((error) => {
-                        if (error.response) {
-                            console.log(error.response.data.errors);
-                            this.errors = error.response.data.errors;
-                        } else {
+            if(this.isadmin)
+            {
+                const datas = new FormData();
+                datas.append('name', this.pizza.name);
+                datas.append('description', this.pizza.description);
+                datas.append('image', this.pizza.image);
+                datas.append('price', this.pizza.price);
+                datas.append('_method', 'PATCH');
+                axios.post('./pizzasData/'+this.pizza.id, datas)
+                    .then(
+                        response => {
+                            console.log("updated");
+                            this.success = true;
                         }
-                    });
+                    ).catch((error) => {
+                            if (error.response) {
+                                console.log(error.response.data.errors);
+                                this.errors = error.response.data.errors;
+                            } else {
+                            }
+                        });
+            }
+            else {this.problem = true;}
         }
     },
     mounted() {

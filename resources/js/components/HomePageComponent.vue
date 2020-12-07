@@ -4,6 +4,9 @@
         <div class="title m-b-md">
             Pizzas
         </div>
+        <div v-if="problem" class="alert alert-danger" role="alert">
+            Nu esti administrator!
+        </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -23,23 +26,21 @@
                     <td>{{ pizza.description }}</td>
                     <td><a v-bind:href="`images/`+pizza.image" target="_blank">Click to view</a></td>
                     
-                    <td><button v-if="getRangID" v-on:click="deleteTodo(pizza)" class="btn btn-outline-danger">Sterge</button> 
+                    <td><button v-on:click="deleteTodo(pizza)" class="btn btn-outline-danger">Sterge</button> 
                         <button @click="item = 3;pizzaDetailsID=pizza.id"  class="btn btn-outline-primary">Detalii</button> 
-                        <button v-if="getRangID" @click="item = 4;pizzaDetailsID=pizza.id"  class="btn btn-outline-info">Editeaza</button>
+                        <button @click="item = 4;pizzaDetailsID=pizza.id"  class="btn btn-outline-info">Editeaza</button>
                     </td>
-                    <!-- <td><a href='{{asset("pizzas/$pizza->image")}}' target="_blank">Click to view</a></td>
-                    <td><a href='/pizzas/delete/{{$pizza->id}}' @click="item = 1" class="btn btn-outline-danger">Sterge</a> <a href='/pizzas/edit/{{$pizza->id}}' @click="item = 2"  class="btn btn-outline-primary">Editeaza</a> <a href='/pizzas/details/{{$pizza->id}}' @click="item = 3"  class="btn btn-outline-info">Detalii</a></td> -->
                 </tr>
             </tbody>
         </table> <hr>
-        <button v-if="getRangID" @click="item=5" class="btn btn-primary btn-lg btn-block">Add a new pizza</button>
+        <button @click="item=5" class="btn btn-primary btn-lg btn-block">Add a new pizza</button>
     </div>
     <div v-else-if="item==3">
         <pizzadetails :pizzaDetailsID="pizzaDetailsID"></pizzadetails><hr>
         <button @click="item=1" class="btn btn-success btn-lg btn-block">Back</button>
     </div>
     <div v-else-if="item==4">
-        <pizzaedit :pizzaDetailsID="pizzaDetailsID"></pizzaedit><hr>
+        <pizzaedit :pizzaDetailsID="pizzaDetailsID" :isadmin="getRangID()"></pizzaedit><hr>
         <button @click="item=1" class="btn btn-success btn-lg btn-block">Back</button>
     </div>
     <div v-else-if="item==5">
@@ -60,15 +61,11 @@ export default {
             item: 1,
             pizzaDetailsID: 0,
             pizzas: [],
+            problem: false,
         }
     },
     components: {
         DetailsPageComponent,
-    },
-    computed: {
-        getRangID: function() {
-            return this.rangid;
-        }
     },
     methods: {
         getData() {
@@ -78,14 +75,21 @@ export default {
                 console.log(error);
             })
         },
-         deleteTodo(e){
-            let data = new FormData();
-            data.append('_method', 'DELETE')
-            axios.post('./pizzasData/'+e.id, data).then((res) =>{
-                this.pizzas = res.data
-            }).catch((error) => {
-                console.log("Error");
-            })
+        deleteTodo(e){
+            if(this.getRangID())
+            {
+                let data = new FormData();
+                data.append('_method', 'DELETE')
+                axios.post('./pizzasData/'+e.id, data).then((res) =>{
+                    this.pizzas = res.data
+                }).catch((error) => {
+                    console.log("Error");
+                })
+            }
+            else { this.problem = true;}
+        },
+        getRangID() {
+            return this.rangid;
         },
     },
     mounted() {
